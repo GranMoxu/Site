@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Realidad Virtual: Estilos de Interaccion, Paradigmas y Metaforas</title>
+    <!-- A-Frame -->
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <style>
+      .clickable { cursor: pointer; }
+    </style>
+  </head>
+  <body>
+    <a-scene background="color: #eef3ff" renderer="antialias: true">
+      <!-- Luz y entorno -->
+      <a-entity light="type: ambient; color: #BBB"></a-entity>
+      <a-entity light="type: directional; color: #FFF; intensity: 0.6" position="1 3 2"></a-entity>
+      <a-sky color="#f0f6ff"></a-sky>
+
+      <!-- Suelo -->
+      <a-plane rotation="-90 0 0" width="40" height="40" color="#e8eef7" shadow="receive: true"></a-plane>
+
+      <!-- Rig de camara con cursor -->
+      <a-entity id="rig" position="0 1.6 6" wasd-controls look-controls>
+        <a-entity camera position="0 0 0">
+          <!-- Cursor para clic con raton / mirada -->
+          <a-entity
+            id="cursor"
+            cursor="fuse: false; rayOrigin: mouse"
+            raycaster="objects: .clickable"
+            position="0 0 -0.1"
+          ></a-entity>
+        </a-entity>
+      </a-entity>
+
+      <!-- Indicaciones flotantes -->
+      <a-entity position="0 3 4" text="value: Explora las tres zonas. Haz clic en botones y hotspots; align: center; width: 6; color: #223"></a-entity>
+
+      <!-- Hotspots de teletransporte (sin librerias extra) -->
+      <a-entity id="hotspots">
+        <a-cylinder class="clickable hotspot" position="-8 0 -2" radius="1" height="0.05" color="#8ecae6" data-goto="-8 1.6 0">
+          <a-entity position="0 0.5 0" text="value: Ir a Estilos; align: center; width: 3; color: #123"></a-entity>
+        </a-cylinder>
+        <a-cylinder class="clickable hotspot" position="1 0 -8" radius="1" height="0.05" color="#8ecae6" data-goto="0 1.6 -6">
+          <a-entity position="0 0.5 0" text="value: Ir a Paradigmas; align: center; width: 3; color: #123"></a-entity>
+        </a-cylinder>
+        <a-cylinder class="clickable hotspot" position="8 0 -2" radius="1" height="0.05" color="#8ecae6" data-goto="8 1.6 0">
+          <a-entity position="0 0.5 0" text="value: Ir a Metaforas; align: center; width: 3; color: #123"></a-entity>
+        </a-cylinder>
+        <a-cylinder class="clickable hotspot" position="0 0 0" radius="1" height="0.05" color="#8ecae6" data-goto="0 0 0">
+          <a-entity position="0 0.5 0" text="value: ; align: center; width: 3; color: #123"></a-entity>
+      </a-entity>
+
+      <!-- ZONA 1: Estilos de Interaccion -->
+      <a-entity id="zona-estilos" position="-8 0 -2">
+        <a-box position="0 1 0" depth="0.2" height="2.2" width="4.5" color="#ffffff" material="roughness: 0.8" shadow></a-box>
+        <a-entity position="0 1.9 0.11" text="value: 1) Estilos de Interaccion; align: center; width: 4.2; color: #0a2540; wrapCount: 24"></a-entity>
+        <a-entity position="0 1.55 0.11" text="value: Formas de comunicarse usuario sistema; align: center; width: 4.2; color: #3a526b; wrapCount: 28"></a-entity>
+
+        <!-- Botones para mostrar ejemplos -->
+        <a-box class="clickable btn" position="-1.4 1.1 0.11" depth="0.08" height="0.35" width="1.3" color="#8ecae6" data-target="#ej-estilos-1" data-mode="toggle"></a-box>
+        <a-entity position="-1.4 1.1 0.15" text="value: Menus\n& Formularios; align: center; width: 1.1; color: #07233b"></a-entity>
+
+        <a-box class="clickable btn" position="0 1.1 0.11" depth="0.08" height="0.35" width="1.3" color="#8ecae6" data-target="#ej-estilos-2" data-mode="toggle"></a-box>
+        <a-entity position="0 1.1 0.15" text="value: Lenguaje\nNatural; align: center; width: 1.1; color: #07233b"></a-entity>
+
+        <a-box class="clickable btn" position="1.4 1.1 0.11" depth="0.08" height="0.35" width="1.3" color="#8ecae6" data-target="#ej-estilos-3" data-mode="toggle"></a-box>
+        <a-entity position="1.4 1.1 0.15" text="value: Gestos / Voz; align: center; width: 1.1; color: #07233b"></a-entity>
+
+        <!-- Detalles que se alternan -->
+        <a-entity id="ej-estilos-1" visible="false" position="0 0.55 0.11" text="value: • Formularios guiados\n• Validaciones\n• Flujos paso a paso; align: center; width: 4; color: #1b3a57; wrapCount: 34"></a-entity>
+        <a-entity id="ej-estilos-2" visible="false" position="0 0.55 0.11" text="value: • Chatbots\n• Busqueda conversacional\n• Intenciones y entidades; align: center; width: 4; color: #1b3a57; wrapCount: 34"></a-entity>
+        <a-entity id="ej-estilos-3" visible="false" position="0 0.55 0.11" text="value: • Comandos por voz\n• Multitactil\n• Seguimiento de manos; align: center; width: 4; color: #1b3a57; wrapCount: 34"></a-entity>
+      </a-entity>
+
+      <!-- ZONA 2: Paradigmas de Interaccion -->
+      <a-entity id="zona-paradigmas" position="0 0 -8">
+        <a-box position="0 1 0" depth="0.2" height="2.2" width="5.2" color="#ffffff" material="roughness: 0.8" shadow></a-box>
+        <a-entity position="0 1.9 0.11" text="value: 2) Paradigmas de Interaccion; align: center; width: 4.8; color: #0a2540; wrapCount: 24"></a-entity>
+        <a-entity position="0 1.55 0.11" text="value: Enfoques que guian el diseño HCI; align: center; width: 4.8; color: #3a526b; wrapCount: 30"></a-entity>
+
+        <a-box class="clickable btn" position="-1.9 1.1 0.11" depth="0.08" height="0.35" width="1.3" color="#ffd166" data-target="#ej-parad-1" data-mode="toggle"></a-box>
+        <a-entity position="-1.9 1.1 0.15" text="value: GUI; align: center; width: 4; color: #7a4d00"></a-entity>
+
+        <a-box class="clickable btn" position="-0.6 1.1 0.11" depth="0.08" height="0.35" width="1.3" color="#ffd166" data-target="#ej-parad-2" data-mode="toggle"></a-box>
+        <a-entity position="-0.6 1.1 0.15" text="value: CLI; align: center; width: 4; color: #7a4d00"></a-entity>
+
+        <a-box class="clickable btn" position="0.7 1.1 0.11" depth="0.08" height="0.35" width="1.3" color="#ffd166" data-target="#ej-parad-3" data-mode="toggle"></a-box>
+        <a-entity position="0.7 1.1 0.15" text="value: Tangible; align: center; width: 4; color: #7a4d00"></a-entity>
+
+        <a-box class="clickable btn" position="2.0 1.1 0.11" depth="0.08" height="0.35" width="1.3" color="#ffd166" data-target="#ej-parad-4" data-mode="toggle"></a-box>
+        <a-entity position="2.0 1.1 0.15" text="value: VR / AR; align: center; width: 4; color: #7a4d00"></a-entity>
+
+        <a-entity id="ej-parad-1" visible="false" position="0 0.6 0.11" text="value: • Metaforas visuales\n• WIMP (windows, icons, menus, pointers)\n• Accesibilidad y usabilidad; align: center; width: 4.8; color: #1b3a57; wrapCount: 36"></a-entity>
+        <a-entity id="ej-parad-2" visible="false" position="0 0.6 0.11" text="value: • Productividad avanzada\n• Automatizacion por scripts\n• Curva de aprendizaje; align: center; width: 4.8; color: #1b3a57; wrapCount: 36"></a-entity>
+        <a-entity id="ej-parad-3" visible="false" position="0 0.6 0.11" text="value: • Objetos fisicos como interfaz\n• Aprendizaje corporal\n• Museos, educacion STEM; align: center; width: 4.8; color: #1b3a57; wrapCount: 36"></a-entity>
+        <a-entity id="ej-parad-4" visible="false" position="0 0.6 0.11" text="value: • Inmersion espacial\n• Interacciones 6DOF\n• Contextos: simulación, formacion, salud; align: center; width: 4.8; color: #1b3a57; wrapCount: 36"></a-entity>
+      </a-entity>
+
+      <!-- ZONA 3: Metaforas -->
+      <a-entity id="zona-metaforas" position="8 0 -2">
+        <a-box position="0 1 0" depth="0.2" height="2.2" width="4.8" color="#ffffff" material="roughness: 0.8" shadow></a-box>
+        <a-entity position="0 1.9 0.11" text="value: 3) Metaforas; align: center; width: 4.4; color: #0a2540; wrapCount: 24"></a-entity>
+        <a-entity position="0 1.55 0.11" text="value: Puentes entre lo digital y el mundo real; align: center; width: 4.4; color: #3a526b; wrapCount: 30"></a-entity>
+
+        <a-box class="clickable btn" position="-1.5 1.1 0.11" depth="0.08" height="0.35" width="1.4" color="#90be6d" data-target="#ej-meta-1" data-mode="toggle"></a-box>
+        <a-entity position="-1.5 1.1 0.15" text="value: Escritorio; align: center; width: 1.2; color: #143714"></a-entity>
+
+        <a-box class="clickable btn" position="0 1.1 0.11" depth="0.08" height="0.35" width="1.4" color="#90be6d" data-target="#ej-meta-2" data-mode="toggle"></a-box>
+        <a-entity position="0 1.1 0.15" text="value: Carpeta / Archivo; align: center; width: 1.2; color: #143714"></a-entity>
+
+        <a-box class="clickable btn" position="1.5 1.1 0.11" depth="0.08" height="0.35" width="1.4" color="#90be6d" data-target="#ej-meta-3" data-mode="toggle"></a-box>
+        <a-entity position="1.5 1.1 0.15" text="value: Papelera; align: center; width: 1.2; color: #143714"></a-entity>
+
+        <a-entity id="ej-meta-1" visible="false" position="0 0.55 0.11" text="value: • Area de trabajo\n• Ventanas como hojas\n• Arrastrar/soltar como manipulacion real; align: center; width: 4.2; color: #1b3a57; wrapCount: 36"></a-entity>
+        <a-entity id="ej-meta-2" visible="false" position="0 0.55 0.11" text="value: • Jerarquia\n• Nombrado y versiones\n• Comparticion; align: center; width: 4.2; color: #1b3a57; wrapCount: 36"></a-entity>
+        <a-entity id="ej-meta-3" visible="false" position="0 0.55 0.11" text="value: • Eliminar / restaurar\n• Confirmaciones\n• Patrones de recuperacion; align: center; width: 4.2; color: #1b3a57; wrapCount: 36"></a-entity>
+      </a-entity>
+
+      <!-- Mural de Mini-Quiz -->
+      <a-entity id="quiz" position="0 0 -2.5">
+        <a-box position="0 2 0" depth="0.15" height="4.2" width="6.5" color="#ffffff"></a-box>
+        <a-entity position="0 3.7 0.11" text="value: Mini Quiz del Maestro; align: center; width: 6; color: #0a2540"></a-entity>
+        <a-entity position="0 3.5 0.11" text="value: Haz clic en la respuesta correcta; align: center; width: 6; color: #3a526b"></a-entity>
+
+        <!-- PREGUNTA 1 -->
+        <a-entity position="0 3.2 0.11" text="value: 1) ¿Que paradigma usa ventanas, iconos y menus?; align: center; width: 6; color: #122"></a-entity>
+        <a-box class="clickable ans" position="-1.6 2.8 0.11" depth="0.08" height="0.3" width="1.7" color="#e2e8f0" data-correct="true"></a-box>
+        <a-entity position="-1.6 2.8 0.15" text="value: GUI; align: center; width: 4 ; color: #041a2c"></a-entity>
+        <a-box class="clickable ans" position="0 2.8 0.11" depth="0.08" height="0.3" width="1.7" color="#e2e8f0"></a-box>
+        <a-entity position="0 2.8 0.15" text="value: CLI; align: center; width: 4; color: #041a2c"></a-entity>
+        <a-box class="clickable ans" position="1.6 2.8 0.11" depth="0.08" height="0.3" width="1.7" color="#e2e8f0"></a-box>
+        <a-entity position="1.6 2.8 0.15" text="value: Tangible; align: center; width: 4; color: #041a2c"></a-entity>
+
+        <!-- PREGUNTA 2 -->
+        <a-entity position="0 2.5 0.11" text="value: 2) Lenguaje natural es un estilo que incluye:; align: center; width: 6; color: #122"></a-entity>
+        <a-box class="clickable ans" position="-1.6 2.1 0.11" depth="0.08" height="0.3" width="1.7" color="#e2e8f0"></a-box>
+        <a-entity position="-1.6 2.1 0.15" text="value: Automatizacion por scripts; align: center; width: 1.6; color: #041a2c; wrapCount: 18"></a-entity>
+        <a-box class="clickable ans" position="0 2.1 0.11" depth="0.08" height="0.3" width="1.7" color="#e2e8f0" data-correct="true"></a-box>
+        <a-entity position="0 2.1 0.15" text="value: Chatbots y consultas; align: center; width: 1.6; color: #041a2c; wrapCount: 18"></a-entity>
+        <a-box class="clickable ans" position="1.6 2.1 0.11" depth="0.08" height="0.3" width="1.7" color="#e2e8f0"></a-box>
+        <a-entity position="1.6 2.1 0.15" text="value: Seguimiento de manos; align: center; width: 1.6; color: #041a2c; wrapCount: 18"></a-entity>
+
+        <!-- PREGUNTA 3 -->
+        <a-entity position="0 1.7 0.11" text="value: 3) La metafora de papelera ayuda a:; align: center; width: 6; color: #122"></a-entity>
+        <a-box class="clickable ans" position="-1.6 1.35 0.11" depth="0.08" height="0.3" width="1.7" color="#e2e8f0" data-correct="true"></a-box>
+        <a-entity position="-1.6 1.35 0.15" text="value: Entender eliminar wwo restaurar; align: center; width: 1.6; color: #041a2c; wrapCount: 18"></a-entity>
+        <a-box class="clickable ans" position="0 1.35 0.11" depth="0.08" height="0.3" width="1.7" color="#e2e8f0"></a-box>
+        <a-entity position="0 1.35 0.15" text="value: Abrir puertos de red; align: center; width: 1.6; color: #041a2c; wrapCount: 18"></a-entity>
+        <a-box class="clickable ans" position="1.6 1.35 0.11" depth="0.08" height="0.3" width="1.7" color="#e2e8f0"></a-box>
+        <a-entity position="1.6 1.35 0.15" text="value: Programar tareas CRON; align: center; width: 1.6; color: #041a2c; wrapCount: 18"></a-entity>
+
+        <!-- Retroalimentacion -->
+        <a-entity id="quiz-feedback" position="0 1 0.11" text="value: ; align: center; width: 6; color: #0a2540"></a-entity>
+
+        <!-- Boton de reset del quiz -->
+        <a-box class="clickable" id="reset-quiz" position="0 0.6 0.11" depth="0.1" height="0.35" width="1.6" color="#8ecae6"></a-box>
+        <a-entity position="0 -1.2 0.15" text="value: Reiniciar Quiz; align: center; width: 1.4; color: #07233b"></a-entity>
+      </a-entity>
+
+      <!-- Leyendas de ayuda -->
+      <a-entity position="0 0.4 3" text="value: Consejos: WASD para moverte • Clic para activar botones • Usa los hotspots para saltar entre zonas; align: center; width: 8; color: #234"></a-entity>
+
+      <!-- Scripts de interaccion -->
+      <script>
+        // Teletransporte simple: al hacer clic sobre hotspot, mover el rig a la coordenada
+        document.addEventListener('click', (e) => {
+          const el = e.target.closest('.hotspot');
+          if (!el) return;
+          const rig = document.querySelector('#rig');
+          const pos = el.getAttribute('data-goto');
+          if (pos && rig) { rig.setAttribute('position', pos); }
+        });
+
+        // Botones de toggle para mostrar/ocultar descripciones
+        document.addEventListener('click', (e) => {
+          const btn = e.target.closest('.btn');
+          if (!btn) return;
+          const sel = btn.getAttribute('data-target');
+          const target = document.querySelector(sel);
+          if (!target) return;
+          const visible = target.getAttribute('visible') === true || target.getAttribute('visible') === 'true';
+          target.setAttribute('visible', !visible);
+          // Pequeña animacion de feedback
+          btn.setAttribute('animation__pulse', 'property: scale; to: 1.1 1.1 1.1; dur: 120; dir: alternate; loop: 1');
+        });
+
+        // Logica del quiz
+        const feedback = () => document.querySelector('#quiz-feedback');
+        function setFeedback(msg, good) {
+          const fb = feedback();
+          fb.setAttribute('text', `value: ${msg}; align: center; width: 6; color: ${good ? '#155724' : '#7a0000'}`);
+        }
+        function clearFeedback() { setFeedback('', true); }
+
+        // Manejo de respuestas
+        document.addEventListener('click', (e) => {
+          const ans = e.target.closest('.ans');
+          if (!ans) return;
+          const correct = ans.getAttribute('data-correct') === 'true';
+          // feedback de color en el boton
+          ans.setAttribute('color', correct ? '#a7f3d0' : '#fecaca');
+          setFeedback(correct ? '¡Correcto!' : 'Revisa la zona correspondiente y vuelve a intentar.');
+        });
+
+        // Reinicio del quiz
+        document.addEventListener('click', (e) => {
+          if (!e.target.closest('#reset-quiz')) return;
+          document.querySelectorAll('.ans').forEach(a => a.setAttribute('color', '#e2e8f0'));
+          clearFeedback();
+        });
+      </script>
+    </a-scene>
+  </body>
+</html>
